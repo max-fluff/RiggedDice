@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Dice : MonoBehaviour
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [SerializeField] private List<Vector3> sideUpRotations;
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private Transform visual;
@@ -51,7 +54,7 @@ public class Dice : MonoBehaviour
         if (Math.Abs(targetRotation.y - (-1)) > 0.001f) transformRotation.y = targetRotation.y;
         if (Math.Abs(targetRotation.z - (-1)) > 0.001f) transformRotation.z = targetRotation.z;
 
-        visual.transform.eulerAngles = targetRotation;
+        visual.transform.eulerAngles = transformRotation;
     }
 
     public void Destroy() => Destroy(gameObject);
