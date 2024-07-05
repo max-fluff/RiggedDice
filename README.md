@@ -7,3 +7,5 @@
  
 ### Пример работы:
 ![image](https://github.com/max-fluff/RiggedDice/assets/48261468/fcc59085-d6ee-43b7-b7d8-7dee2b83efee)
+
+Unity ver. **2022.3.36f1**
