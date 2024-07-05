@@ -1,13 +1,11 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Dice : MonoBehaviour
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    [SerializeField] private List<Vector3> sideUpRotations;
+    [SerializeField] private List<Transform> sides;
+
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private Transform visual;
 
@@ -46,15 +44,15 @@ public class Dice : MonoBehaviour
     /// <param name="value">Ожидаемое значение на кости</param>
     public void SetVisualRotation(int value)
     {
-        var targetRotation = sideUpRotations[value - 1];
+        var sidesOrdered = sides.OrderBy(s => s.position.y).ToList();
+        var topSide = sidesOrdered.Last();
 
-        var transformRotation = visual.transform.eulerAngles;
+        var vectorToCurrentTop = topSide.position - transform.position;
+        var vectorToWantedTop = sides[value - 1].transform.position - transform.position;
 
-        if (Math.Abs(targetRotation.x - (-1)) > 0.001f) transformRotation.x = targetRotation.x;
-        if (Math.Abs(targetRotation.y - (-1)) > 0.001f) transformRotation.y = targetRotation.y;
-        if (Math.Abs(targetRotation.z - (-1)) > 0.001f) transformRotation.z = targetRotation.z;
+        var vectorToRotate = Quaternion.FromToRotation(vectorToWantedTop, vectorToCurrentTop);
 
-        visual.transform.eulerAngles = transformRotation;
+        visual.transform.Rotate(vectorToRotate.eulerAngles);
     }
 
     public void Destroy() => Destroy(gameObject);

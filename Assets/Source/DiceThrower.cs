@@ -22,7 +22,7 @@ namespace Source
 
             _dices.Clear();
         }
-        
+
         /// <summary>
         /// Бросок костей
         /// </summary>
@@ -46,6 +46,8 @@ namespace Source
                 _dices.Add(dice);
             }
 
+            Physics.simulationMode = SimulationMode.Script;
+
             // Симуляция броска костей
             var physicsFramesCount = Simulate();
 
@@ -56,6 +58,8 @@ namespace Source
                 dice.SetVisualRotation(values[index]);
                 dice.Rigidbody.isKinematic = true;
             }
+
+            Physics.simulationMode = SimulationMode.FixedUpdate;
 
             // Покадровое воспроизведение записанного движения
 
@@ -74,8 +78,6 @@ namespace Source
         /// <returns> Количество симулированных кадров</returns>
         private int Simulate()
         {
-            Physics.simulationMode = SimulationMode.Script;
-
             var physicsFramesCount = 0;
 
             while (_dices.Any(d =>
@@ -86,8 +88,6 @@ namespace Source
 
                 physicsFramesCount++;
             }
-
-            Physics.simulationMode = SimulationMode.FixedUpdate;
 
             return physicsFramesCount;
         }
