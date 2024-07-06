@@ -46,13 +46,13 @@ public class Dice : MonoBehaviour
     {
         var sidesOrdered = sides.OrderBy(s => s.position.y).ToList();
         var topSide = sidesOrdered.Last();
-
-        var vectorToCurrentTop = topSide.position - transform.position;
-        var vectorToWantedTop = sides[value - 1].transform.position - transform.position;
+        
+        var vectorToCurrentTop = topSide.localPosition;
+        var vectorToWantedTop = sides[value - 1].transform.localPosition;
 
         var vectorToRotate = Quaternion.FromToRotation(vectorToWantedTop, vectorToCurrentTop);
 
-        visual.transform.Rotate(vectorToRotate.eulerAngles);
+        visual.transform.localRotation *= vectorToRotate;
     }
 
     public void Destroy() => Destroy(gameObject);
