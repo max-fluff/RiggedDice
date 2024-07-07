@@ -80,8 +80,7 @@ namespace Source
         {
             var physicsFramesCount = 0;
 
-            while (_dices.Any(d =>
-                       d.Rigidbody.velocity.magnitude > 0.0001f || d.Rigidbody.angularVelocity.magnitude > 0.0001f))
+            while (_dices.Any(d => !d.Rigidbody.IsSleeping()))
             {
                 _dices.ForEach(d => d.RecordState());
                 Physics.Simulate(Time.fixedDeltaTime);

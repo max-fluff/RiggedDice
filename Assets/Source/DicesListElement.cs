@@ -19,7 +19,7 @@ namespace Source
                 inputField.SetTextWithoutNotify("6");
             else
             {
-                var intValue = Mathf.Clamp(int.Parse(value), 1, 6);
+                var intValue = Mathf.Clamp(int.Parse(value), 0, 6);
                 inputField.SetTextWithoutNotify(intValue.ToString());
             }
         }

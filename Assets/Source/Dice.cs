@@ -5,7 +5,6 @@ using UnityEngine;
 public class Dice : MonoBehaviour
 {
     [SerializeField] private List<Transform> sides;
-
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private Transform visual;
 
@@ -44,7 +43,10 @@ public class Dice : MonoBehaviour
     /// <param name="value">Ожидаемое значение на кости</param>
     public void SetVisualRotation(int value)
     {
-        var sidesOrdered = sides.OrderBy(s => s.position.y).ToList();
+        if(value == 0)
+            return;
+        
+        var sidesOrdered = sides.OrderBy(s => s.position.y);
         var topSide = sidesOrdered.Last();
         
         var vectorToCurrentTop = topSide.localPosition;
